@@ -1,15 +1,14 @@
-# SubQuery Starter Project for Cosmos Networks
+# SubQuery Project to get Juno Validators and Delegators
 
-This is a starter project for Indexing Cosmos Networks. It includes a simple blockhandler and an event handler.
+This is a starter project for Indexing Juno,
+It provides a list of all Juno validators and delegators, all delegations, and the total delegated for each entity.
 
-**You can find starter projects for different Cosmos zones within this repository under each branch, this includes**:
+It does not yet handle:
 
-- Juno (main)
-- CosmosHub
-- Fetch.ai
-- Stargaze
-- Osmosis
-- Cronos
+- cooldowns of delegation, it treats begin redelegate as a instantenous action
+- the MsgCancelUnboundingDelegation
+
+The numbers are probably not quite exactly accurate, but it's a great example of how to build a SubQuery project
 
 # Getting Started
 
