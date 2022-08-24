@@ -1,0 +1,41 @@
+specVersion: 1.0.0
+name: juno-subql-starter
+version: 0.0.1
+runner:
+  node:
+    name: "@subql/node-cosmos"
+    version: ">=0.1.0"
+  query:
+    name: "@subql/query"
+    version: "*"
+description: Indexes all juno validators and their delegaton
+repository: "https://github.com/jamesbayly/juno-validators-delegation"
+schema:
+  file: ./schema.graphql
+network:
+  chainId: juno-1
+  endpoint: "https://rpc.juno-1.api.onfinality.io"
+  dictionary: "https://api.subquery.network/sq/subquery/cosmos-juno-dictionary"
+dataSources:
+  - kind: cosmos/Runtime
+    startBlock: 4136532 # first block on juno-1
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        # documentation here https://docs.rs/cosmos-sdk-proto/0.5.0/cosmos_sdk_proto/cosmos/staking/v1beta1/struct.MsgDelegate.html
+        - handler: handleCreateValidator
+          kind: cosmos/MessageHandler
+          filter:
+            type: /cosmos.staking.v1beta1.MsgCreateValidator
+        - handler: handleDelegate
+          kind: cosmos/MessageHandler
+          filter:
+            type: /cosmos.staking.v1beta1.MsgDelegate
+        - handler: handleUndelegate
+          kind: cosmos/MessageHandler
+          filter:
+            type: /cosmos.staking.v1beta1.MsgUndelegate
+        - handler: handleRedelegate
+          kind: cosmos/MessageHandler
+          filter:
+            type: /cosmos.staking.v1beta1.MsgBeginRedelegate

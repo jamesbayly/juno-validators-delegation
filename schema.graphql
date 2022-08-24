@@ -1,0 +1,28 @@
+# type Block @entity {
+#   id: ID! # The block hash
+#   height: BigInt!
+# }
+
+type Validator @entity {
+  id: ID! # Operator address
+  delegator: Delegator
+  createdBlock: BigInt!
+  totalDelegation: BigInt!
+  moniker: String
+  identity: String
+  website: String
+  security_contact: String
+  details: String
+}
+
+type Delegation @entity {
+  id: ID! # The composite key of validator and delegator
+  validator: Validator!
+  delegator: Delegator
+  amount: BigInt!
+}
+
+type Delegator @entity {
+  id: ID! # Address
+  totalDelegation: BigInt!
+}
